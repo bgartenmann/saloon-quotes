@@ -8,4 +8,6 @@ use App\Http\Controllers\FavoritesController;
 Route::get('/', [RandomQuoteController::class, 'show']);
 Route::get('/author/{author}', [AuthorQuotesController::class, 'show']);
 Route::get('/author/{author}/quotes', [AuthorQuotesController::class, 'index']);
+
+Route::get('/favorites', [FavoritesController::class, 'index']);
 Route::post('/favorites', [FavoritesController::class, 'store']);

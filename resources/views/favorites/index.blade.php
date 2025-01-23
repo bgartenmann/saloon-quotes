@@ -2,11 +2,11 @@
 
 @section('content')
 
-    <h1 class="text-4xl text-center">All quotes from {{ $author }}</h1>
+    <h1 class="text-4xl text-center">Your favorite quotes</h1>
 
     <section class="space-y-4 mt-10">
         @foreach ($quotes as $quote)
-            @include('partials.quote', ['quote' => $quote, 'isFavorite' => false])
+            @include('partials.quote', ['quote' => $quote, 'isFavorite' => true])
         @endforeach
     </section>
 
