@@ -2,9 +2,9 @@
 
 @section('content')
     <figure class="text-center p-10 bg-lime-400 rounded shadow-xl shadow-lime-200">
-        <blockquote class="font-bold text-3xl ">{{ $quote }}</blockquote>
+        <blockquote class="font-bold text-3xl ">{{ $quote['text'] }}</blockquote>
         <figcaption class="italic mt-2">
-            Random Author
+            &mdash; {{ $quote['author'] }}
         </figcaption>
     </figure>
 
