@@ -6,3 +6,4 @@ use App\Http\Controllers\AuthorQuotesController;
 
 Route::get('/', [RandomQuoteController::class, 'show']);
 Route::get('/author/{author}', [AuthorQuotesController::class, 'show']);
+Route::get('/author/{author}/quotes', [AuthorQuotesController::class, 'index']);

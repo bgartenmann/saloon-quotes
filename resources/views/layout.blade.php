@@ -10,7 +10,7 @@
         <!-- Styles / Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="p-4 bg-lime-50 flex justify-center items-center h-screen">
+    <body class="p-4 bg-lime-50 flex justify-center items-center min-h-screen">
         <main class="2xl:w-2/3 mx-auto p-4">
             @yield('content')
         </main>
