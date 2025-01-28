@@ -3,18 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Integrations\ProgrammingQuotes\ProgrammingQuotesConnector;
-use App\Http\Integrations\ProgrammingQuotes\Requests\GetAuthorQuotesRequest;
+use App\Http\Integrations\ProgrammingQuotes\ProgrammingQuotes;
 
 class AuthorQuotesController extends Controller
 {
     public function index()
     {
-        $connector = new ProgrammingQuotesConnector();
-        $request = new GetAuthorQuotesRequest(author: request('author'));
-        $response = $connector->send($request);
-
-        $quotes = $response->collect();
+        $programmingQuotes = new ProgrammingQuotes();
+        $quotes = $programmingQuotes->quotes()->allFromAuthor(request('author'));
         
         return view('authors-quote.index', [
             'author' => str_replace('_', ' ', request('author')),
@@ -24,11 +20,8 @@ class AuthorQuotesController extends Controller
 
     public function show()
     {
-        $connector = new ProgrammingQuotesConnector();
-        $request = new GetAuthorQuotesRequest(author: request('author'));
-        $response = $connector->send($request);
-
-        $randomQuote = $response->collect()->random();
+        $programmingQuotes = new ProgrammingQuotes();
+        $randomQuote = $programmingQuotes->quotes()->randomFromAuthor(request('author'));
         
         return view('random-quote.show', [
             'quote' => $randomQuote,

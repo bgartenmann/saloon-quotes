@@ -3,18 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Integrations\ProgrammingQuotes\ProgrammingQuotesConnector;
-use App\Http\Integrations\ProgrammingQuotes\Requests\GetRandomQuoteRequest;
+use App\Http\Integrations\ProgrammingQuotes\ProgrammingQuotes;
 
 class RandomQuoteController extends Controller
 {
     public function show()
     {
-        $connector = new ProgrammingQuotesConnector();
-        $request = new GetRandomQuoteRequest();
-        $response = $connector->send($request);
-
-        $randomQuote = $response->json();
+        $programmingQuotes = new ProgrammingQuotes();
+        $randomQuote = $programmingQuotes->quotes()->random();
         
         return view('random-quote.show', [
             'quote' => $randomQuote,
