@@ -7,7 +7,7 @@ use Saloon\Http\Response;
 use Saloon\Http\Connector;
 use Illuminate\Support\Collection;
 use App\Http\Integrations\ProgrammingQuotes\ProgrammingQuotesConnector;
-use App\Http\Integrations\ProgrammingQuotes\AuthenticatedProgrammingQuotesConnector;
+use App\Http\Integrations\ProgrammingQuotes\Auth\DynamicTokenAuthenticator;
 use App\Http\Integrations\ProgrammingQuotes\Requests\GetQuoteRequest;
 use App\Http\Integrations\ProgrammingQuotes\Requests\GetAuthTokenRequest;
 use App\Http\Integrations\ProgrammingQuotes\Requests\AddToFavoritesRequest;
@@ -17,7 +17,6 @@ class Favorites extends BaseResource
 
    public function __construct(
       readonly protected Connector $connector,
-      readonly protected Connector $authenticatedConnector,
       private string $email,
       private string $password,
    ) {}
@@ -38,6 +37,9 @@ class Favorites extends BaseResource
    
    public function add(string $id): Response
    {
-      return $this->authenticatedConnector->send(new AddToFavoritesRequest(id: $id));
+      return $this->connector->authenticate(new DynamicTokenAuthenticator(
+         email: $this->email,
+         password: $this->password
+      ))->send(new AddToFavoritesRequest(id: $id));
    }
 }
